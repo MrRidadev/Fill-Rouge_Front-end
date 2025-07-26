@@ -1,3 +1,48 @@
-.navbar {
-  backdrop-filter: blur(8px);
+.navbar-glass {
+  background: rgba(180, 180, 180, 0.8); /* fond gris clair semi-transparent */
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #a3c4f3;
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+
+.navbar-brand {
+  font-family: 'Metal Mania', cursive;
+  color: #d50032 !important;
+  font-size: 1.8rem;
+}
+
+.nav-link {
+  color: #fff !important;
+  margin: 0 0.5rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.icon-btn {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+}
+
+.navbar-nav {
+  align-items: center;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: deeppink;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.notification-icon {
+  position: relative;
 }

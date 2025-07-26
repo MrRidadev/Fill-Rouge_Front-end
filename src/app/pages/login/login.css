@@ -5,6 +5,7 @@
   border-radius: 20px;
   max-width: 400px;
   margin: auto;
+  margin-top: 10rem;
 }
 
 .auth-title {
@@ -46,4 +47,8 @@
   color: #aaa;
   font-size: 0.9rem;
   text-decoration: none;
+}
+.form-control::placeholder {
+  color: #ccc;
+  opacity: 1;
 }
