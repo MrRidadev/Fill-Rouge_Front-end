@@ -1,10 +1,51 @@
+<!-- login.html -->
 <div class="auth-box" id="login">
-  <h2 class="auth-title">Login</h2>
-  <form>
-    <input type="email" class="form-control" placeholder="enter your email" required />
-    <input type="password" class="form-control" placeholder="confirm a password" required />
-    <button type="submit" class="btn btn-custom">LOGIN NOW</button>
-    <a href="/register" class="switch-link">create a new account</a>
+  <h2 class="auth-title">Connexion</h2>
+
+  <!-- Messages d'alerte -->
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <!-- Email -->
+    <input
+      type="email"
+      class="form-control"
+      formControlName="email"
+      placeholder="Entrez votre email"
+      [class.input-error]="email?.invalid && email?.touched"
+    />
+    <div *ngIf="email?.invalid && email?.touched" class="error-message">
+      <small *ngIf="email?.errors?.['required']">Email requis</small>
+      <small *ngIf="email?.errors?.['email']">Format invalide</small>
+    </div>
+
+    <!-- Mot de passe -->
+    <input
+      type="password"
+      class="form-control"
+      formControlName="motDePasse"
+      placeholder="Entrez votre mot de passe"
+      [class.input-error]="motDePasse?.invalid && motDePasse?.touched"
+    />
+    <div *ngIf="motDePasse?.invalid && motDePasse?.touched" class="error-message">
+      <small *ngIf="motDePasse?.errors?.['required']">Mot de passe requis</small>
+      <small *ngIf="motDePasse?.errors?.['minlength']">Min. 3 caractères</small>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-custom"
+      [disabled]="loginForm.invalid || isLoading"
+    >
+      <span *ngIf="isLoading" class="spinner"></span>
+      {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+    </button>
+
+    <a routerLink="/register" class="switch-link">Créer un nouveau compte</a>
   </form>
 </div>
-

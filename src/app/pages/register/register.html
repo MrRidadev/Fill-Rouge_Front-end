@@ -1,11 +1,92 @@
 <div class="auth-box">
-  <h2 class="auth-title">Register</h2>
-  <form>
-    <input type="text" class="form-control" placeholder="enter your name" required />
-    <input type="email" class="form-control" placeholder="enter your email" required />
-    <input type="password" class="form-control" placeholder="create a password" required />
-    <button type="submit" class="btn btn-custom">REGISTER NOW</button>
-    <a href="/login" class="switch-link">click to login</a>
+  <h2 class="auth-title">Créer un compte</h2>
+
+  <!-- Messages d'alerte -->
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nom complet -->
+    <input
+      type="text"
+      class="form-control"
+      formControlName="nomComplet"
+      placeholder="Entrez votre nom complet"
+      [class.input-error]="nomComplet?.invalid && nomComplet?.touched"
+    />
+    <div *ngIf="nomComplet?.invalid && nomComplet?.touched" class="error-message">
+      <small *ngIf="nomComplet?.errors?.['required']">Le nom complet est obligatoire</small>
+      <small *ngIf="nomComplet?.errors?.['minlength']">Min. 2 caractères</small>
+    </div>
+
+    <!-- Email -->
+    <input
+      type="email"
+      class="form-control"
+      formControlName="email"
+      placeholder="Entrez votre email"
+      [class.input-error]="email?.invalid && email?.touched"
+    />
+    <div *ngIf="email?.invalid && email?.touched" class="error-message">
+      <small *ngIf="email?.errors?.['required']">L'email est obligatoire</small>
+      <small *ngIf="email?.errors?.['email']">Format invalide</small>
+    </div>
+
+    <!-- Mot de passe -->
+    <input
+      type="password"
+      class="form-control"
+      formControlName="modPass"
+      placeholder="Créer un mot de passe"
+      [class.input-error]="modPass?.invalid && modPass?.touched"
+    />
+    <div *ngIf="modPass?.invalid && modPass?.touched" class="error-message">
+      <small *ngIf="modPass?.errors?.['required']">Mot de passe obligatoire</small>
+      <small *ngIf="modPass?.errors?.['minlength']">Min. 6 caractères</small>
+    </div>
+
+    <!-- Confirmation -->
+    <input
+      type="password"
+      class="form-control"
+      formControlName="confirmPassword"
+      placeholder="Confirmer le mot de passe"
+      [class.input-error]="confirmPassword?.invalid && confirmPassword?.touched"
+    />
+    <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="error-message">
+      <small *ngIf="confirmPassword?.errors?.['required']">Confirmation requise</small>
+      <small *ngIf="confirmPassword?.errors?.['passwordMismatch']">Ne correspondent pas</small>
+    </div>
+
+    <!-- Sélection du rôle -->
+    <select
+      class="form-control"
+      formControlName="role"
+      [class.input-error]="role?.invalid && role?.touched"
+    >
+      <option value="">Sélectionnez un rôle</option>
+      <option value="CLIENT">Client</option>
+      <option value="ADMIN">Administrateur</option>
+    </select>
+    <div *ngIf="role?.invalid && role?.touched" class="error-message">
+      <small *ngIf="role?.errors?.['required']">Veuillez choisir un rôle</small>
+    </div>
+
+    <!-- Bouton submit -->
+    <button
+      type="submit"
+      class="btn btn-custom"
+      [disabled]="registerForm.invalid || isLoading"
+    >
+      <span *ngIf="isLoading" class="spinner"></span>
+      {{ isLoading ? 'Création...' : 'REGISTER NOW' }}
+    </button>
+
+    <a routerLink="/login" class="switch-link">Vous avez déjà un compte ? Se connecter</a>
   </form>
 </div>
-
