@@ -76,9 +76,9 @@ export class Login implements OnInit {
 
   redirectBasedOnRole(): void {
     if (this.authService.isAdmin()) {
-      this.router.navigate(['/admin/dashboard']);
+      this.router.navigate(['/pages/dashboard-admin']);
     } else if (this.authService.isClient()) {
-      this.router.navigate(['/client/dashboard']);
+      this.router.navigate(['/pages/dashboard-client']);
     } else {
       this.router.navigate(['/']);
     }
