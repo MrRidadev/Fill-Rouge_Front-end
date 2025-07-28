@@ -1,4 +1,3 @@
-<!-- login.html -->
 <div class="auth-box" id="login">
   <h2 class="auth-title">Connexion</h2>
 
@@ -17,9 +16,11 @@
       class="form-control"
       formControlName="email"
       placeholder="Entrez votre email"
-      [class.input-error]="email?.invalid && email?.touched"
+      [class.input-error]="email?.invalid"
+
     />
-    <div *ngIf="email?.invalid && email?.touched" class="error-message">
+
+    <div *ngIf="email?.invalid" class="error-message">
       <small *ngIf="email?.errors?.['required']">Email requis</small>
       <small *ngIf="email?.errors?.['email']">Format invalide</small>
     </div>
@@ -30,9 +31,9 @@
       class="form-control"
       formControlName="motDePasse"
       placeholder="Entrez votre mot de passe"
-      [class.input-error]="motDePasse?.invalid && motDePasse?.touched"
+      [class.input-error]="motDePasse?.invalid"
     />
-    <div *ngIf="motDePasse?.invalid && motDePasse?.touched" class="error-message">
+    <div *ngIf="motDePasse?.invalid" class="error-message">
       <small *ngIf="motDePasse?.errors?.['required']">Mot de passe requis</small>
       <small *ngIf="motDePasse?.errors?.['minlength']">Min. 3 caractères</small>
     </div>

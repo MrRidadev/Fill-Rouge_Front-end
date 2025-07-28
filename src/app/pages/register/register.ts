@@ -1,28 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule} from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import {Auth, RegisterRequest} from '../../services/auth';
 import { CommonModule, NgIf } from '@angular/common';
+
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgIf],
+  imports: [ReactiveFormsModule, CommonModule, NgIf, RouterLink],
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
 
 export class Register implements OnInit {
 
-  registerForm!: FormGroup;
-  isLoading = false;
-  errorMessage = '';
-  successMessage = '';
+  public registerForm!: FormGroup;
+  public isLoading = false;
+  public errorMessage = '';
+  public successMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private authService: Auth,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.initForm();
 
@@ -37,29 +39,8 @@ export class Register implements OnInit {
       nomComplet: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       modPass: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
       role: ['CLIENT', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
-  }
-
-  // Validateur personnalisé pour vérifier que les mots de passe correspondent
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('modPass');
-    const confirmPassword = form.get('confirmPassword');
-
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
-    }
-
-    if (confirmPassword?.errors?.['passwordMismatch']) {
-      delete confirmPassword.errors['passwordMismatch'];
-      if (Object.keys(confirmPassword.errors).length === 0) {
-        confirmPassword.setErrors(null);
-      }
-    }
-
-    return null;
+    });
   }
 
   onSubmit(): void {
@@ -68,8 +49,7 @@ export class Register implements OnInit {
       this.errorMessage = '';
       this.successMessage = '';
 
-      const { confirmPassword, ...registerData } = this.registerForm.value;
-      const userData: RegisterRequest = registerData;
+      const userData: RegisterRequest = this.registerForm.value;
 
       this.authService.register(userData).subscribe({
         next: (response) => {
@@ -77,7 +57,7 @@ export class Register implements OnInit {
           this.successMessage = response;
           setTimeout(() => {
             this.router.navigate(['/login']);
-          }, 2000);
+          }, 3000);
         },
         error: (error) => {
           this.isLoading = false;
@@ -111,9 +91,8 @@ export class Register implements OnInit {
   }
 
   // Getters pour faciliter l'accès aux champs dans le template
-  get nomComplet() { return this.registerForm.get('nomComplet'); }
-  get email() { return this.registerForm.get('email'); }
-  get modPass() { return this.registerForm.get('modPass'); }
-  get confirmPassword() { return this.registerForm.get('confirmPassword'); }
-  get role() { return this.registerForm.get('role'); }
+  public get nomComplet() { return this.registerForm.get('nomComplet'); }
+  public get email() { return this.registerForm.get('email'); }
+  public get modPass() { return this.registerForm.get('modPass'); }
+  public get role() { return this.registerForm.get('role'); }
 }

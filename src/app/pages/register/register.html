@@ -17,9 +17,9 @@
       class="form-control"
       formControlName="nomComplet"
       placeholder="Entrez votre nom complet"
-      [class.input-error]="nomComplet?.invalid && nomComplet?.touched"
+      [class.input-error]="nomComplet?.invalid"
     />
-    <div *ngIf="nomComplet?.invalid && nomComplet?.touched" class="error-message">
+    <div *ngIf="nomComplet?.invalid" class="error-message">
       <small *ngIf="nomComplet?.errors?.['required']">Le nom complet est obligatoire</small>
       <small *ngIf="nomComplet?.errors?.['minlength']">Min. 2 caractères</small>
     </div>
@@ -30,9 +30,10 @@
       class="form-control"
       formControlName="email"
       placeholder="Entrez votre email"
-      [class.input-error]="email?.invalid && email?.touched"
+      [class.input-error]="email?.invalid"
+
     />
-    <div *ngIf="email?.invalid && email?.touched" class="error-message">
+    <div *ngIf="email?.invalid" class="error-message">
       <small *ngIf="email?.errors?.['required']">L'email est obligatoire</small>
       <small *ngIf="email?.errors?.['email']">Format invalide</small>
     </div>
@@ -43,37 +44,38 @@
       class="form-control"
       formControlName="modPass"
       placeholder="Créer un mot de passe"
-      [class.input-error]="modPass?.invalid && modPass?.touched"
+      [class.input-error]="modPass?.invalid"
     />
-    <div *ngIf="modPass?.invalid && modPass?.touched" class="error-message">
+    <div *ngIf="modPass?.invalid" class="error-message">
       <small *ngIf="modPass?.errors?.['required']">Mot de passe obligatoire</small>
+
       <small *ngIf="modPass?.errors?.['minlength']">Min. 6 caractères</small>
     </div>
 
     <!-- Confirmation -->
-    <input
-      type="password"
-      class="form-control"
-      formControlName="confirmPassword"
-      placeholder="Confirmer le mot de passe"
-      [class.input-error]="confirmPassword?.invalid && confirmPassword?.touched"
-    />
-    <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="error-message">
-      <small *ngIf="confirmPassword?.errors?.['required']">Confirmation requise</small>
-      <small *ngIf="confirmPassword?.errors?.['passwordMismatch']">Ne correspondent pas</small>
-    </div>
+<!--    <input-->
+<!--      type="password"-->
+<!--      class="form-control"-->
+<!--      formControlName="confirmPassword"-->
+<!--      placeholder="Confirmer le mot de passe"-->
+<!--      [class.input-error]="confirmPassword?.invalid"-->
+<!--    />-->
+<!--    <div *ngIf="confirmPassword?.invalid" class="error-message">-->
+<!--      <small *ngIf="confirmPassword?.errors?.['required']">Confirmation requise</small>-->
+<!--      <small *ngIf="confirmPassword?.errors?.['passwordMismatch']">Ne correspondent pas</small>-->
+<!--    </div>-->
 
     <!-- Sélection du rôle -->
     <select
       class="form-control"
       formControlName="role"
-      [class.input-error]="role?.invalid && role?.touched"
+      [class.input-error]="role?.invalid"
     >
       <option value="">Sélectionnez un rôle</option>
       <option value="CLIENT">Client</option>
       <option value="ADMIN">Administrateur</option>
     </select>
-    <div *ngIf="role?.invalid && role?.touched" class="error-message">
+    <div *ngIf="role?.invalid" class="error-message">
       <small *ngIf="role?.errors?.['required']">Veuillez choisir un rôle</small>
     </div>
 

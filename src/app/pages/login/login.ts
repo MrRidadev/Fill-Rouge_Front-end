@@ -1,13 +1,15 @@
+// login.ts
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {Auth, LoginRequest} from '../../services/auth';
 import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
-    ReactiveFormsModule,NgIf
+    ReactiveFormsModule, NgIf, RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'
@@ -21,7 +23,7 @@ export class Login implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: Auth,
+    public authService: Auth,
     private router: Router
   ) {}
 
@@ -91,5 +93,4 @@ export class Login implements OnInit {
   // Getters pour faciliter l'accès aux champs dans le template
   get email() { return this.loginForm.get('email'); }
   get motDePasse() { return this.loginForm.get('motDePasse'); }
-
 }
