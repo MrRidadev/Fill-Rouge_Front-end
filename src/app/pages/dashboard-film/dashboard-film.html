@@ -1,0 +1,98 @@
+<div class="p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Gestion des films</h3>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFilmModal">
+      <i class="bi bi-plus"></i> Ajouter un film
+    </button>
+
+  </div>
+  <!-- Modal Ajouter un film -->
+  <div class="modal fade" id="addFilmModal" tabindex="-1" aria-labelledby="addFilmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addFilmModalLabel">Ajouter un film</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="image" class="form-label">Image du film</label>
+              <input type="file" class="form-control" id="image" >
+            </div>
+            <div class="mb-3">
+              <label for="titreFilm" class="form-label">Titre du film</label>
+              <input type="text" class="form-control" id="titreFilm" placeholder="Ex: Avatar 3">
+            </div>
+            <div class="mb-3">
+              <label for="langueFilm" class="form-label">Langue</label>
+              <input type="text" class="form-control" id="langueFilm" placeholder="Ex: Français, Anglais...">
+            </div>
+            <div class="mb-3">
+              <label for="descriptionFilm" class="form-label">Description</label>
+              <textarea class="form-control" id="descriptionFilm" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="genreFilm" class="form-label">Genre</label>
+              <input id="genreFilm" class="form-control" type="text" placeholder="Ex: Action, Comédie, Drame...">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <p class="text-muted mb-4">Gérez votre catalogue de films</p>
+
+  <!-- Filtres -->
+  <div class="row g-2 mb-4">
+    <div class="col-12 col-md-6 col-lg-4">
+      <input type="text" class="form-control" placeholder="🔍 Rechercher un film..." />
+    </div>
+    <div class="col-6 col-md-3 col-lg-2">
+      <select class="form-select">
+        <option>Tous les genres</option>
+        <option>Action</option>
+        <option>Science-Fiction</option>
+      </select>
+    </div>
+    <div class="col-6 col-md-3 col-lg-2">
+      <select class="form-select">
+        <option>Tous les statuts</option>
+        <option>Actif</option>
+        <option>Archivé</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Films (statique) -->
+  <div class="row g-4">
+    <!-- Film 1 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm">
+        <div class="position-relative film-image-container">
+          <img src="https://image.tmdb.org/t/p/w500/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg"
+               alt="Affiche Avatar 2"
+               class="img-fluid w-100 film-image rounded-top">
+          <span class="badge bg-success position-absolute top-0 end-0 m-2">Actif</span>
+        </div>
+        <div class="card-body">
+          <h5 class="fw-bold">Avatar: The Way of Water</h5>
+          <p class="mb-2">Langue : <span class="badge bg-primary text-white">Français</span></p>
+          <p class="mb-2">Description : Un film épique qui se déroule dans le monde de Pandora.</p>
+          <p class="mb-2">Genre : <span class="badge bg-success text-white">Science-Fiction</span></p>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary flex-grow-1"><i class="bi bi-pencil me-1"></i>Modifier</button>
+            <button class="btn btn-outline-danger flex-grow-1"><i class="bi bi-trash me-1"></i>Supprimer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
