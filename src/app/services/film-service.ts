@@ -8,6 +8,7 @@ export interface Film {
   langue: string;
   description: String;
   genre : string;
+  imageUrl: string;
 }
 
 @Injectable({
@@ -16,7 +17,7 @@ export interface Film {
 
 export class FilmService {
 
-  private apiUrl = 'http://localhost:8081/film/getAllFilm';
+  private apiUrl = 'http://localhost:8087/film/getAllFilm';
 
   constructor(private http: HttpClient) {}
 

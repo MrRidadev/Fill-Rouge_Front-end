@@ -76,8 +76,8 @@
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let film of films">
       <div class="card h-100 shadow-sm">
         <div class="position-relative film-image-container">
-          <img src="https://image.tmdb.org/t/p/w500/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg"
-               alt="Affiche Avatar 2"
+          <img src="{{film.imageUrl}}"
+               alt="image"
                class="img-fluid w-100 film-image rounded-top">
           <span class="badge bg-success position-absolute top-0 end-0 m-2">Actif</span>
         </div>

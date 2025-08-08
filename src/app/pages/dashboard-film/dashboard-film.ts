@@ -19,6 +19,7 @@ export class DashboardFilm implements OnInit {
 
   ngOnInit(): void {
     this.filmService.getFilms().subscribe((data) => {
+      console.log(data);
       this.films = data;
     });
   }
