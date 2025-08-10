@@ -16,12 +16,18 @@ export interface Film {
 })
 
 export class FilmService {
-
-  private apiUrl = 'http://localhost:8087/film/getAllFilm';
+//afficher film
+  private apiUrl = 'http://localhost:8087/film';
 
   constructor(private http: HttpClient) {}
 
   getFilms(): Observable<Film[]> {
-    return this.http.get<Film[]>(this.apiUrl);
+    return this.http.get<Film[]>(`${this.apiUrl}/getAllFilm`);
+  }
+
+  // supprimer film by id
+
+  deleteFilm(idFilm: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/deleteFilm/${idFilm}`);
   }
 }

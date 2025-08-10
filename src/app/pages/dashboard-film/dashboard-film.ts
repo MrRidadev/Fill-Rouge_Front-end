@@ -23,4 +23,20 @@ export class DashboardFilm implements OnInit {
       this.films = data;
     });
   }
+
+  deleteFilm(idFilm: number) {
+    console.log(idFilm);
+    if (confirm('Voulez-vous vraiment supprimer ce film ?')) {
+      this.filmService.deleteFilm(idFilm).subscribe({
+        next: () => {
+          this.films = this.films.filter(f => f.id_film !== idFilm);
+          alert('Film supprimé avec succès !');
+        },
+        error: err => {
+          console.error(err);
+          alert('Erreur lors de la suppression du film.');
+        }
+      });
+    }
+  }
 }
