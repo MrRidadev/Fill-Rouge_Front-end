@@ -29,7 +29,7 @@ export class DashboardFilm implements OnInit {
     if (confirm('Voulez-vous vraiment supprimer ce film ?')) {
       this.filmService.deleteFilm(idFilm).subscribe({
         next: () => {
-          this.films = this.films.filter(f => f.id_film !== idFilm);
+          this.films = this.films.filter(f => f.idFilm !== idFilm);
           alert('Film supprimé avec succès !');
         },
         error: err => {

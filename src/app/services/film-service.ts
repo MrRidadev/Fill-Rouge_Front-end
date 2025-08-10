@@ -3,7 +3,7 @@ import {HttpClient,HttpClientModule } from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 export interface Film {
-  id_film: number;
+  idFilm: number;
   titre: string;
   langue: string;
   description: String;
