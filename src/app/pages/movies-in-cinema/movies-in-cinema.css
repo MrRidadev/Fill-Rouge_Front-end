@@ -1,0 +1,53 @@
+body {
+  background-color: #000;
+}
+
+.in-cinema-title {
+  position: relative;
+}
+
+.in-cinema-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 40px;
+  height: 3px;
+  background-color: #d62b38;
+}
+
+.btn-custom {
+  background-color: #90b4c3;
+  color: #000;
+  border-radius: 50px;
+  padding: 8px 20px;
+  font-weight: 500;
+}
+
+.btn-custom:hover {
+  background-color: #7ca3b3;
+}
+
+/* Taille d'image fixe mais responsive */
+.img-fluid {
+  width: clamp(150px, 80%, 220px); /* min 150px, max 220px, sinon 80% dispo */
+  height: clamp(220px, 40vw, 320px); /* min 220px, max 320px, sinon proportion */
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Ajustement sur petits écrans */
+@media (max-width: 576px) {
+  .img-fluid {
+    width: 150px;
+    height: 220px;
+  }
+}
+
+/* Ajustement sur écrans moyens */
+@media (min-width: 577px) and (max-width: 992px) {
+  .img-fluid {
+    width: 180px;
+    height: 260px;
+  }
+}

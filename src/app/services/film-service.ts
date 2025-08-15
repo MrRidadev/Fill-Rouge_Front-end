@@ -28,6 +28,6 @@ export class FilmService {
   // supprimer film by id
 
   deleteFilm(idFilm: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deleteFilm/${idFilm}`);
+    return this.http.delete<void>(`${this.apiUrl}/delete/${idFilm}`);
   }
 }

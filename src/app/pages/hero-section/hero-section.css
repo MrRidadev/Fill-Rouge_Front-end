@@ -1,7 +1,7 @@
 .hero {
   position: relative;
-  background: url('https://i.imgur.com/l9XxZYh.jpeg') no-repeat center center / cover;
-  height: 75vh;
+  background: url('https://i.pinimg.com/1200x/fb/94/36/fb9436067d5a4e48a899e3480bc0a890.jpg') no-repeat center center / cover;
+  height: 85vh;
   color: white;
 }
 
@@ -12,6 +12,7 @@
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+
 }
 
 .hero-content {

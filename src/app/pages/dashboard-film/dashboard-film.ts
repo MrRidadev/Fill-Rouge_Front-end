@@ -31,6 +31,7 @@ export class DashboardFilm implements OnInit {
         next: () => {
           this.films = this.films.filter(f => f.idFilm !== idFilm);
           alert('Film supprimé avec succès !');
+          this.films = this.films.filter(f => f.idFilm !== idFilm); // Mise à jour immédiate de la liste
         },
         error: err => {
           console.error(err);

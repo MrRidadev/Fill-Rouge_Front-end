@@ -1,10 +1,11 @@
 .navbar-glass {
-  background: rgba(180, 180, 180, 0.8); /* fond gris clair semi-transparent */
   border-radius: 20px;
   padding: 0.5rem 1rem;
   border: 1px solid #a3c4f3;
   backdrop-filter: blur(6px);
   position: relative;
+
+
 }
 
 .navbar-brand {
