@@ -5,10 +5,11 @@ import {HeroSection} from './pages/hero-section/hero-section';
 import {Login} from './pages/login/login';
 import {Register} from './pages/register/register';
 import {MoviesInCinema} from './pages/movies-in-cinema/movies-in-cinema';
+import {MovieCard} from './pages/movie-card/movie-card';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, HeroSection, Login, Register, MoviesInCinema],
+  imports: [RouterOutlet, Navbar, HeroSection, Login, Register, MoviesInCinema, MovieCard],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

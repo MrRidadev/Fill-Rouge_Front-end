@@ -1,0 +1,47 @@
+.movie-card {
+  background-color: #2b0c04; /* fond sombre proche de l'image */
+}
+
+.coming-soon {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.genre {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 2rem;
+  color: #f5c78a; /* couleur proche du titre de l'affiche */
+}
+
+.release-date {
+  font-size: 1rem;
+  color: #d4a373;
+}
+
+.description {
+  font-size: 0.95rem;
+  color: #e0d3c2;
+  line-height: 1.6;
+}
+
+/* Style de l'affiche */
+.poster {
+  max-width: 60%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+/* Responsive : ajustement pour petits écrans */
+@media (max-width: 767.98px) {
+  .title {
+    font-size: 1.5rem;
+  }
+  .description {
+    font-size: 0.9rem;
+  }
+}
