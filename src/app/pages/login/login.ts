@@ -77,7 +77,7 @@ export class Login implements OnInit {
     if (this.authService.isAdmin()) {
       this.router.navigate(['/dashboard-admin']);
     } else if (this.authService.isClient()) {
-      this.router.navigate(['/pages/dashboard-client']);
+      this.router.navigate(['/dashboard-film']);
     } else {
       this.router.navigate(['/home']);
     }

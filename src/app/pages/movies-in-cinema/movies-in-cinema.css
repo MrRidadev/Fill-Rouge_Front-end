@@ -28,26 +28,31 @@ body {
   background-color: #7ca3b3;
 }
 
-/* Taille d'image fixe mais responsive */
-.img-fluid {
-  width: clamp(150px, 80%, 220px); /* min 150px, max 220px, sinon 80% dispo */
-  height: clamp(220px, 40vw, 320px); /* min 220px, max 320px, sinon proportion */
-  object-fit: cover;
+.carousel-item .col-12 {
+  flex: 0 0 auto;
+  width: 220px;
+  min-height: 380px;
+  background: #111;
   border-radius: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* Ajustement sur petits écrans */
-@media (max-width: 576px) {
-  .img-fluid {
-    width: 150px;
-    height: 220px;
-  }
+.img-fluid {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
 }
 
-/* Ajustement sur écrans moyens */
-@media (min-width: 577px) and (max-width: 992px) {
-  .img-fluid {
-    width: 180px;
-    height: 260px;
-  }
+.carousel-item .row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 15px;
+  padding-bottom: 10px;
 }
