@@ -37,7 +37,7 @@ export interface User {
 
 export class Auth {
 
-  private apiUrl = 'http://localhost:8081/auth';
+  private apiUrl = 'http://localhost:8087/auth';
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
