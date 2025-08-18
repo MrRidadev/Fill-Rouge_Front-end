@@ -8,7 +8,7 @@ import {NgIf} from '@angular/common';
   selector: 'app-login',
   standalone: true,
   imports: [
-    ReactiveFormsModule, NgIf, RouterLink
+    ReactiveFormsModule, NgIf
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'
@@ -30,9 +30,9 @@ export class Login implements OnInit {
     this.initForm();
 
     // Rediriger si déjà connecté
-    if (this.authService.isLoggedIn()) {
-      this.redirectBasedOnRole();
-    }
+    //if (this.authService.isLoggedIn()) {
+     // this.redirectBasedOnRole();
+    //}
   }
 
   initForm(): void {
@@ -75,11 +75,11 @@ export class Login implements OnInit {
 
   redirectBasedOnRole(): void {
     if (this.authService.isAdmin()) {
-      this.router.navigate(['/dashboard-film']);
+      this.router.navigate(['/dashboard-admin']);
     } else if (this.authService.isClient()) {
       this.router.navigate(['/pages/dashboard-client']);
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     }
   }
 

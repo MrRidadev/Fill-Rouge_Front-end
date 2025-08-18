@@ -27,7 +27,7 @@ export class FilmService {
 
   // supprimer film by id
 
-  deleteFilm(idFilm: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/${idFilm}`);
+  deleteFilm(idFilm: number): Observable<string> {
+    return this.http.delete(`${this.apiUrl}/delete/${idFilm}`, { responseType: 'text' });
   }
 }
