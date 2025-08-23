@@ -1,4 +1,7 @@
-
+#dashboard-film{
+  background-color: #ffffff !important;
+  height: 50rem !important;
+}
 .card {
   border-radius: 1rem;
 }

@@ -1,3 +1,7 @@
+#dashboard{
+  background-color: #ffffff !important;
+}
+
 .sidebar {
   width: 250px;
   min-height: 100vh;
