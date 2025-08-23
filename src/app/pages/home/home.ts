@@ -5,6 +5,8 @@ import {MoviesInCinema} from "../movies-in-cinema/movies-in-cinema";
 import {Navbar} from "../navbar/navbar";
 import {RouterOutlet} from "@angular/router";
 import {HeroSection} from '../hero-section/hero-section';
+import {Contact} from '../contact/contact';
+import {Footer} from '../footer/footer';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,9 @@ import {HeroSection} from '../hero-section/hero-section';
     MoviesInCinema,
     Navbar,
     RouterOutlet,
-    HeroSection
+    HeroSection,
+    Contact,
+    Footer
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
