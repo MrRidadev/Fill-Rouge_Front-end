@@ -39,4 +39,26 @@ export class DashboardFilm implements OnInit {
       });
     }
   }
+
+
+  getImageUrl(imageData: string): string {
+    if (!imageData) {
+      return 'https://via.placeholder.com/300x400?text=Pas+d\'image';
+    }
+
+    // Si c'est déjà une URL complète
+    if (imageData.startsWith('http')) {
+      return imageData;
+    }
+
+    // Si c'est du base64 sans le préfixe
+    if (!imageData.startsWith('data:image/')) {
+      return `data:image/jpeg;base64,${imageData}`;
+    }
+
+    // Si c'est déjà formaté correctement
+    return imageData;
+  }
+
+
 }
