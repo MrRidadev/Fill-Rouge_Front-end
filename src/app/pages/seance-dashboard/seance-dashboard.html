@@ -40,40 +40,53 @@
 <div class="modal fade" id="addSeanceModal" tabindex="-1" aria-labelledby="addSeanceModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content rounded-3 shadow">
+
+      <!-- Header -->
       <div class="modal-header">
         <h5 class="modal-title fw-bold" id="addSeanceModalLabel">
           <i class="bi bi-plus-circle me-2"></i> Ajouter une Séance
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
+
+      <!-- Body -->
       <div class="modal-body">
-        <form>
+        <form (ngSubmit)="onSubmit()" #seanceForm="ngForm">
+
           <div class="mb-3">
             <label class="form-label">Nom de Séance</label>
-            <input type="text" class="form-control" placeholder="Ex: Séance matinée">
+            <input type="text" class="form-control" [(ngModel)]="seance.nom_seance" name="nom_seance" placeholder="Ex: Séance matinée" required />
           </div>
+
           <div class="mb-3">
             <label class="form-label">Date & Heure</label>
-            <input type="datetime-local" class="form-control">
+            <input type="datetime-local" class="form-control" [(ngModel)]="seance.dateHeure" name="dateHeure" required />
           </div>
+
           <div class="mb-3">
-            <label class="form-label">Film</label>
-            <input type="text" class="form-control" placeholder="Ex: Avatar">
+            <label class="form-label">Film ID</label>
+            <input type="number" class="form-control" [(ngModel)]="seance.filmId" name="filmId" placeholder="Ex: 1" required />
           </div>
+
           <div class="mb-3">
-            <label class="form-label">Salle</label>
-            <input type="text" class="form-control" placeholder="Ex: Salle 3">
+            <label class="form-label">Salle ID</label>
+            <input type="number" class="form-control" [(ngModel)]="seance.salleId" name="salleId" placeholder="Ex: 3" required />
           </div>
+
         </form>
       </div>
+
+      <!-- Footer -->
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           <i class="bi bi-x-circle"></i> Annuler
         </button>
-        <button class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" [disabled]="!seanceForm.form.valid" (click)="onSubmit()" data-bs-dismiss="modal">
           <i class="bi bi-check-circle"></i> Ajouter
         </button>
       </div>
+
     </div>
   </div>
 </div>
+
