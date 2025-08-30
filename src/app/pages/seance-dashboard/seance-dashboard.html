@@ -22,10 +22,13 @@
 
           <!-- Boutons -->
           <div class="mt-auto d-flex justify-content-between">
-            <button class="btn btn-warning btn-sm d-flex align-items-center gap-1">
+            <button class="btn btn-warning btn-sm d-flex align-items-center gap-1"
+                    (click)="openEditModal(seance)"
+                    data-bs-toggle="modal" data-bs-target="#editSeanceModal">
               <i class="bi bi-pencil-square"></i> Modifier
             </button>
-            <button class="btn btn-danger btn-sm d-flex align-items-center gap-1">
+
+            <button class="btn btn-danger btn-sm d-flex align-items-center gap-1" (click)="deleteSeance(seance.id)">
               <i class="bi bi-trash"></i> Supprimer
             </button>
           </div>
@@ -89,4 +92,61 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal Modifier -->
+<div class="modal fade" id="editSeanceModal" tabindex="-1" aria-labelledby="editSeanceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-3 shadow">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="editSeanceModalLabel">
+          <i class="bi bi-pencil-square me-2"></i> Modifier une Séance
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body" *ngIf="selectedSeance">
+        <form #editSeanceForm="ngForm">
+
+          <div class="mb-3">
+            <label class="form-label">Nom de Séance</label>
+            <input type="text" class="form-control" [(ngModel)]="selectedSeance.nomSeance" name="nomSeance" required />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Date & Heure</label>
+            <input type="datetime-local" class="form-control" [(ngModel)]="selectedSeance.dateHeure" name="dateHeure" required />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Film ID</label>
+            <input type="number" class="form-control" [(ngModel)]="selectedSeance.film.id" name="filmId" required />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Salle ID</label>
+            <input type="number" class="form-control" [(ngModel)]="selectedSeance.salle.id" name="salleId" required />
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle"></i> Annuler
+        </button>
+        <button type="button" class="btn btn-success"
+                (click)="updateSeance()" data-bs-dismiss="modal">
+          <i class="bi bi-check-circle"></i> Sauvegarder
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 

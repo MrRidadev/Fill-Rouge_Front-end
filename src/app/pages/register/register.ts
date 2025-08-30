@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import {Auth, RegisterRequest} from '../../services/auth';
 import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgIf, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, NgIf],
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
@@ -29,9 +29,9 @@ export class Register implements OnInit {
     this.initForm();
 
     // Rediriger si déjà connecté
-    if (this.authService.isLoggedIn()) {
-      this.redirectBasedOnRole();
-    }
+   // if (this.authService.isLoggedIn()) {
+     // this.redirectBasedOnRole();
+   // }
   }
 
   initForm(): void {
@@ -78,7 +78,7 @@ export class Register implements OnInit {
     if (this.authService.isAdmin()) {
       this.router.navigate(['/pages/dashboard-admin']);
     } else if (this.authService.isClient()) {
-      this.router.navigate(['/pages/dashboard-client']);
+      this.router.navigate(['/']);
     } else {
       this.router.navigate(['/']);
     }

@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Seance, SeanceRequest} from '../../services/seance';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-seance-dashboard',
   imports: [
     NgForOf,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './seance-dashboard.html',
   styleUrl: './seance-dashboard.css'
@@ -15,6 +16,7 @@ import {FormsModule} from '@angular/forms';
 export class SeanceDashboard implements OnInit {
 
   seances: Seance[] = [];
+  selectedSeance: any = null;
 
   seance: SeanceRequest = {
     nom_seance: '',
@@ -28,6 +30,10 @@ export class SeanceDashboard implements OnInit {
   constructor(private seanceService : Seance) {}
 
   ngOnInit() {
+    this.loadSeances();
+  }
+
+  loadSeances() {
     this.seanceService.getSeance().subscribe((data) => {
       this.seances = data;
     })
@@ -46,5 +52,40 @@ export class SeanceDashboard implements OnInit {
       }
     });
   }
+
+
+  // Supprimer séance
+  deleteSeance(id: number) {
+    if (confirm('Voulez-vous vraiment supprimer cette séance ?')) {
+      this.seanceService.deleteSeance(id).subscribe(() => {
+        this.loadSeances();
+      });
+    }
+  }
+
+
+  // Ouvrir le modal avec les infos de la séance
+  openEditModal(seance: any) {
+    this.selectedSeance = { ...seance }; // clone
+  }
+
+// Sauvegarder la modification
+  updateSeance() {
+    if (this.selectedSeance) {
+      this.seanceService.updateSeance(this.selectedSeance.id, this.selectedSeance).subscribe({
+        next: (res) => {
+          this.message = 'Séance modifiée avec succès !';
+          this.loadSeances();
+          this.selectedSeance = null;
+        },
+        error: (err) => {
+          this.message = 'Erreur lors de la modification de la séance';
+          console.error(err);
+        }
+      });
+    }
+  }
+
+
 
 }

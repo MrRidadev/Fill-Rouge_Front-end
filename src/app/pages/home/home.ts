@@ -7,6 +7,7 @@ import {RouterOutlet} from "@angular/router";
 import {HeroSection} from '../hero-section/hero-section';
 import {Contact} from '../contact/contact';
 import {Footer} from '../footer/footer';
+import {SeanceList} from '../seance-list/seance-list';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ import {Footer} from '../footer/footer';
     RouterOutlet,
     HeroSection,
     Contact,
-    Footer
+    Footer,
+    SeanceList
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
