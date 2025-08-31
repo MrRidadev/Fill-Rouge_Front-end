@@ -30,5 +30,10 @@ export const routes: Routes = [
   {
     path: 'dashboard-Seance',
     component : SeanceDashboard
-  }
+  },
+
+
 ];
+
+
+
