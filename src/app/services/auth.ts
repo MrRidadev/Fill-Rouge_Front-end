@@ -22,6 +22,7 @@ export interface LoginResponse {
   nomComplet?: string;
   email?: string;
   role?: 'ADMIN' | 'CLIENT';
+  token?: string;
 }
 
 export interface User {
@@ -53,19 +54,15 @@ export class Auth {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials)
       .pipe(
         tap(response => {
-          if (response.success && response.userId) {
-            const user: User = {
-              id: response.userId,
-              nomComplet: response.nomComplet!,
-              email: response.email!,
-              role: response.role!
-            };
+          if (response.success && response.token) {
+            const user = { ...response, token: response.token };
+            console.log(user);
             localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUserSubject.next(user);
           }
         })
       );
   }
+
 
   register(userData: RegisterRequest): Observable<string> {
     return this.http.post(`${this.apiUrl}/register`, userData, { responseType: 'text' });

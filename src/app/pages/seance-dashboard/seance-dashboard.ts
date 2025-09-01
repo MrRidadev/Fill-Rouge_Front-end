@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Seance, SeanceRequest} from '../../services/seance';
 import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {Auth} from '../../services/auth';
 
 @Component({
   selector: 'app-seance-dashboard',
@@ -27,11 +28,21 @@ export class SeanceDashboard implements OnInit {
 
   message: string = '';
 
-  constructor(private seanceService : Seance) {}
+  constructor(
+    private seanceService : Seance,
+    private auth: Auth
+  ) {}
 
   ngOnInit() {
+    const user = this.auth.getCurrentUser();
+    console.log(user);
+    if (!user || user.role !== 'ADMIN') {
+      alert('Vous devez être connecté en tant qu\'ADMIN pour ajouter une séance.');
+      return;
+    }
     this.loadSeances();
   }
+
 
   loadSeances() {
     this.seanceService.getSeance().subscribe((data) => {
@@ -39,19 +50,19 @@ export class SeanceDashboard implements OnInit {
     })
   }
 
-
+// ajouter séance
   onSubmit() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    if (currentUser?.role !== 'ADMIN') {
+      this.message = "Vous n'avez pas les droits pour ajouter une séance";
+      return;
+    }
     this.seanceService.addSeance(this.seance).subscribe({
-      next: (res) => {
-        this.message = 'Séance ajoutée avec succès !';
-        console.log(res);
-      },
-      error: (err) => {
-        this.message = 'Erreur lors de l’ajout de la séance';
-        console.error(err);
-      }
+      next: res => { this.message = 'Séance ajoutée !'; this.loadSeances(); },
+      error: err => { this.message = 'Erreur : ' + err.message; }
     });
   }
+
 
 
   // Supprimer séance
