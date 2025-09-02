@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Film} from './film-service';
-import {Observable} from 'rxjs';
-import {Salle} from './salle';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Film } from './film-service';
+import { Salle } from './salle';
+import {AuthService} from './auth';
 
-export interface Seance{
+export interface Seance {
   id: number;
-  nomSeance: String;
-  dateHeure : Date;
+  nomSeance: string;
+  dateHeure: Date;
   film: Film;
-  salle : Salle;
+  salle: Salle;
 }
 
 export interface SeanceRequest {
@@ -18,36 +19,46 @@ export interface SeanceRequest {
   filmId: number;
   salleId: number;
 }
+
 @Injectable({
   providedIn: 'root'
 })
-export class Seance {
+export class SeanceService {
+  private Urlapi = 'http://localhost:8087/seance/';
 
-  private Urlapi ='http://localhost:8087/seance/';
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
-  constructor(private http : HttpClient) { }
-
-  // get seance
-  getSeance(): Observable<Seance[]> {
-    return this.http.get<Seance[]>(this.Urlapi+'getAllSeance');
-
+  private getHeaders() {
+    const token = this.auth.getToken();
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    });
   }
 
-  // ajouter séance
+  getSeance(): Observable<Seance[]> {
+    return this.http.get<Seance[]>(this.Urlapi + 'getAllSeance', {
+      headers: this.getHeaders()
+    });
+  }
+
   addSeance(seance: SeanceRequest): Observable<any> {
-    return this.http.post(`${this.Urlapi}addSeance`, seance);
+    return this.http.post(`${this.Urlapi}addSeance`, seance, {
+      headers: this.getHeaders()
+    });
   }
 
   // Supprimer une séance
   deleteSeance(id: number): Observable<string> {
-    return this.http.delete(`${this.Urlapi}deleteSeance/${id}`, { responseType: 'text' });
+    return this.http.delete<string>(`${this.Urlapi}deleteSeance/${id}`, { responseType: 'text' as 'json',
+      headers: this.getHeaders()
+    });
   }
 
 
-  // Mettre à jour une séance
   updateSeance(id: number, seance: Seance): Observable<Seance> {
-    return this.http.put<Seance>(`${this.Urlapi}updateSeance/${id}`, seance);
+    return this.http.put<Seance>(`${this.Urlapi}updateSeance/${id}`, seance, {
+      headers: this.getHeaders()
+    });
   }
-
-
 }

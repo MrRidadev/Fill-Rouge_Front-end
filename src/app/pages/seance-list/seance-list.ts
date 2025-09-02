@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Seance} from '../../services/seance';
+import {Seance, SeanceService} from '../../services/seance';
 import {NgForOf} from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ export class SeanceList implements OnInit {
 
   seances: Seance[] = [];
 
-  constructor(private seanceService : Seance) {}
+  constructor(private seanceService : SeanceService) {}
 
   ngOnInit() {
     this.loadSeances();

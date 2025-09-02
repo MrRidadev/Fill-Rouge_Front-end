@@ -1,17 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import {Auth, LoginRequest} from '../../services/auth';
-import {NgIf} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService, LoginRequest, AuthResponse } from '../../services/auth';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    ReactiveFormsModule, NgIf
-  ],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrls: ['./login.css']
 })
 export class Login implements OnInit {
 
@@ -22,17 +20,12 @@ export class Login implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    public authService: Auth,
+    public authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.initForm();
-
-    // Rediriger si déjà connecté
-    //if (this.authService.isLoggedIn()) {
-     // this.redirectBasedOnRole();
-    //}
   }
 
   initForm(): void {
@@ -51,10 +44,12 @@ export class Login implements OnInit {
       const loginData: LoginRequest = this.loginForm.value;
 
       this.authService.login(loginData).subscribe({
-        next: (response) => {
+        next: (response: AuthResponse) => {
           this.isLoading = false;
           if (response.success) {
             this.successMessage = response.message;
+            // sauvegarder utilisateur dans localStorage
+            this.authService.saveUser(response);
             setTimeout(() => {
               this.redirectBasedOnRole();
             }, 1000);
@@ -62,7 +57,7 @@ export class Login implements OnInit {
             this.errorMessage = response.message;
           }
         },
-        error: (error) => {
+        error: (error: any) => {
           this.isLoading = false;
           this.errorMessage = 'Erreur de connexion. Veuillez réessayer.';
           console.error('Erreur login:', error);
@@ -74,10 +69,8 @@ export class Login implements OnInit {
   }
 
   redirectBasedOnRole(): void {
-    if (this.authService.isAdmin()) {
+    if (this.authService.getCurrentUser()?.role === 'ADMIN') {
       this.router.navigate(['/dashboard-admin']);
-    } else if (this.authService.isClient()) {
-      this.router.navigate(['/']);
     } else {
       this.router.navigate(['/']);
     }
@@ -89,7 +82,6 @@ export class Login implements OnInit {
     });
   }
 
-  // Getters pour faciliter l'accès aux champs dans le template
   get email() { return this.loginForm.get('email'); }
   get motDePasse() { return this.loginForm.get('motDePasse'); }
 }

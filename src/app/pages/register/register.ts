@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
-import {Auth, RegisterRequest} from '../../services/auth';
+import { AuthService, RegisterRequest, AuthResponse } from '../../services/auth';
 import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
@@ -17,21 +17,18 @@ export class Register implements OnInit {
   public registerForm!: FormGroup;
   public isLoading = false;
   public errorMessage = '';
-  public successMessage = '';
+  public successMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private authService: Auth,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.initForm();
 
-    // Rediriger si déjà connecté
-   // if (this.authService.isLoggedIn()) {
-     // this.redirectBasedOnRole();
-   // }
+
   }
 
   initForm(): void {
@@ -43,36 +40,38 @@ export class Register implements OnInit {
     });
   }
 
+
   onSubmit(): void {
     if (this.registerForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
       this.successMessage = '';
 
-      const userData: RegisterRequest = this.registerForm.value;
+      const userData: RegisterRequest = {
+        nomComplet: this.registerForm.value.nomComplet,
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.modPass
+      };
 
       this.authService.register(userData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.successMessage = response;
+          this.successMessage = response.message;
+          this.authService.saveUser(response);    //  sauvegarder user dans localStorage
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 3000);
         },
         error: (error) => {
           this.isLoading = false;
-          if (error.error && typeof error.error === 'string') {
-            this.errorMessage = error.error;
-          } else {
-            this.errorMessage = 'Erreur lors de l\'inscription. Veuillez réessayer.';
-          }
-          console.error('Erreur inscription:', error);
+          this.errorMessage = error.error || 'Erreur lors de l\'inscription. Veuillez réessayer.';
         }
       });
     } else {
       this.markFormGroupTouched();
     }
   }
+
 
   redirectBasedOnRole(): void {
     if (this.authService.isAdmin()) {

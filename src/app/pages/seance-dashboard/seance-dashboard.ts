@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Seance, SeanceRequest} from '../../services/seance';
-import {NgForOf, NgIf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {Auth} from '../../services/auth';
+import { Component, OnInit } from '@angular/core';
+import { Seance, SeanceRequest, SeanceService } from '../../services/seance';
+import { AuthService } from '../../services/auth';
+import { NgForOf, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-seance-dashboard',
@@ -12,12 +12,12 @@ import {Auth} from '../../services/auth';
     NgIf
   ],
   templateUrl: './seance-dashboard.html',
-  styleUrl: './seance-dashboard.css'
+  styleUrls: ['./seance-dashboard.css']
 })
 export class SeanceDashboard implements OnInit {
 
   seances: Seance[] = [];
-  selectedSeance: any = null;
+  selectedSeance: Seance | null = null;
 
   seance: SeanceRequest = {
     nom_seance: '',
@@ -29,13 +29,12 @@ export class SeanceDashboard implements OnInit {
   message: string = '';
 
   constructor(
-    private seanceService : Seance,
-    private auth: Auth
+    private seanceService: SeanceService,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
     const user = this.auth.getCurrentUser();
-    console.log(user);
     if (!user || user.role !== 'ADMIN') {
       alert('Vous devez être connecté en tant qu\'ADMIN pour ajouter une séance.');
       return;
@@ -43,60 +42,64 @@ export class SeanceDashboard implements OnInit {
     this.loadSeances();
   }
 
-
   loadSeances() {
-    this.seanceService.getSeance().subscribe((data) => {
+    this.seanceService.getSeance().subscribe((data: Seance[]) => {
       this.seances = data;
-    })
+    });
   }
 
-// ajouter séance
+  // Ajouter séance
   onSubmit() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    const currentUser = this.auth.getCurrentUser();
     if (currentUser?.role !== 'ADMIN') {
       this.message = "Vous n'avez pas les droits pour ajouter une séance";
       return;
     }
     this.seanceService.addSeance(this.seance).subscribe({
-      next: res => { this.message = 'Séance ajoutée !'; this.loadSeances(); },
-      error: err => { this.message = 'Erreur : ' + err.message; }
+      next: (res: any) => {
+        this.message = 'Séance ajoutée !';
+        this.loadSeances();
+      },
+      error: (err: any) => {
+        this.message = 'Erreur : ' + err.message;
+      }
     });
   }
-
-
 
   // Supprimer séance
   deleteSeance(id: number) {
     if (confirm('Voulez-vous vraiment supprimer cette séance ?')) {
-      this.seanceService.deleteSeance(id).subscribe(() => {
-        this.loadSeances();
+      this.seanceService.deleteSeance(id).subscribe({
+        next: (res: string) => {
+          this.message = res;
+          this.loadSeances();
+        },
+        error: (err: any) => {
+          this.message = 'Erreur : ' + err.message;
+        }
       });
     }
   }
 
-
   // Ouvrir le modal avec les infos de la séance
-  openEditModal(seance: any) {
-    this.selectedSeance = { ...seance }; // clone
+  openEditModal(seance: Seance) {
+    this.selectedSeance = { ...seance };
   }
 
-// Sauvegarder la modification
+  // Sauvegarder la modification
   updateSeance() {
     if (this.selectedSeance) {
       this.seanceService.updateSeance(this.selectedSeance.id, this.selectedSeance).subscribe({
-        next: (res) => {
+        next: (res: Seance) => {
           this.message = 'Séance modifiée avec succès !';
           this.loadSeances();
           this.selectedSeance = null;
         },
-        error: (err) => {
+        error: (err: any) => {
           this.message = 'Erreur lors de la modification de la séance';
           console.error(err);
         }
       });
     }
   }
-
-
-
 }

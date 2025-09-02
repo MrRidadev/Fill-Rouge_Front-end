@@ -90,12 +90,13 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           <i class="bi bi-x-circle"></i> Annuler
         </button>
-        <button type="submit" class="btn btn-primary"
+        <button type="button" class="btn btn-primary"
                 [disabled]="!seanceForm.form.valid"
                 (click)="onSubmit()" data-bs-dismiss="modal">
           <i class="bi bi-check-circle"></i> Ajouter
         </button>
       </div>
+
 
     </div>
   </div>
@@ -133,7 +134,7 @@
           <div class="mb-3">
             <label class="form-label" for="filmIdEdit">Film ID</label>
             <input id="filmIdEdit" type="number" class="form-control"
-                   [(ngModel)]="selectedSeance.film.id" name="filmId" required />
+                   [(ngModel)]="selectedSeance.film.idFilm" name="filmId" required />
           </div>
 
           <div class="mb-3">
