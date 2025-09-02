@@ -10,7 +10,8 @@ export interface LoginRequest {
 export interface RegisterRequest {
   nomComplet: string;
   email: string;
-  password: string;
+  modPass: string;
+  role: string;
 }
 
 export interface AuthResponse {

@@ -28,7 +28,6 @@ export class Register implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
-
   }
 
   initForm(): void {
@@ -50,21 +49,22 @@ export class Register implements OnInit {
       const userData: RegisterRequest = {
         nomComplet: this.registerForm.value.nomComplet,
         email: this.registerForm.value.email,
-        password: this.registerForm.value.modPass
+        modPass: this.registerForm.value.modPass,
+        role: this.registerForm.value.role
       };
 
       this.authService.register(userData).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.isLoading = false;
-          this.successMessage = response.message;
-          this.authService.saveUser(response);    //  sauvegarder user dans localStorage
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 3000);
+          this.successMessage = response.message || 'Inscription réussie.';
+          if (response.success) {
+            this.authService.saveUser(response); // sauvegarde seulement si success
+            setTimeout(() => this.router.navigate(['/login']), 3000);
+          }
         },
         error: (error) => {
           this.isLoading = false;
-          this.errorMessage = error.error || 'Erreur lors de l\'inscription. Veuillez réessayer.';
+          this.errorMessage = error.error?.message || error.error || 'Erreur lors de l\'inscription. Veuillez réessayer.';
         }
       });
     } else {
