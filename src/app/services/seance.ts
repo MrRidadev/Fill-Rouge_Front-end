@@ -57,8 +57,11 @@ export class SeanceService {
 
 
   updateSeance(id: number, seance: Seance): Observable<Seance> {
-    return this.http.put<Seance>(`${this.Urlapi}updateSeance/${id}`, seance, {
-      headers: this.getHeaders()
-    });
+    return this.http.put<Seance>(
+      `${this.Urlapi}updateSeance/${id}`,
+      seance,
+      { headers: this.getHeaders() }
+    );
   }
 }
+

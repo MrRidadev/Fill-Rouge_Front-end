@@ -61,8 +61,8 @@
       [class.input-error]="role?.invalid"
     >
       <option value="">Sélectionnez un rôle</option>
-      <option value="CLIENT">Client</option>
-      <option value="ADMIN">Administrateur</option>
+      <option value="CLIENT">CLIENT</option>
+      <option value="ADMIN">ADMIN</option>
     </select>
     <div *ngIf="role?.invalid" class="error-message">
       <small *ngIf="role?.errors?.['required']">Veuillez choisir un rôle</small>
