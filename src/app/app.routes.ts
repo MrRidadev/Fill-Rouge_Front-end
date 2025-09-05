@@ -21,16 +21,18 @@ export const routes: Routes = [
   },
   {
     path:'dashboard-admin',
-    component : DashboardAdmin
-  },
-  {
-    path: 'dashboard-film',
-    component : DashboardFilm
-  },
-  {
-    path: 'dashboard-Seance',
-    component : SeanceDashboard
-  },
+    component : DashboardAdmin,
+    children:[
+      {
+        path: 'dashboard-film',
+        component : DashboardFilm
+      },
+      {
+        path: 'dashboard-Seance',
+        component : SeanceDashboard
+      }
+    ]
+  }
 
 
 ];

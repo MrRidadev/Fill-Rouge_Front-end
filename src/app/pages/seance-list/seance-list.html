@@ -1,6 +1,5 @@
 <section class="seances-container">
 
-  <!-- Séance 1 -->
   <div class="card red" *ngFor="let seance of seances">
     <div class="card-header">
       <div class="date">📅 {{seance.dateHeure}}</div>
@@ -9,12 +8,16 @@
       <h3 class="seance-title">Nom Séance : {{seance.nomSeance}}</h3>
       <p><strong>Film :</strong> {{seance.film.titre}}</p>
       <p><strong>Salle :</strong> {{seance.salle.nom}}</p>
+
+      <!-- Champ pour saisir le nombre de places -->
+      <label>Nombre de places :</label>
+      <input type="number" [(ngModel)]="numPlace" min="1" />
     </div>
     <div class="card-footer">
-      <a href="#" class="btn-reserver">🎟️ Réserver</a>
+      <button class="btn-reserver" (click)="reserver(seance.id)">
+        🎟️ Réserver
+      </button>
     </div>
   </div>
-
-
 
 </section>
