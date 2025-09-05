@@ -5,6 +5,7 @@ import {DashboardFilm} from './pages/dashboard-film/dashboard-film';
 import {Login} from './pages/login/login';
 import {Home} from './pages/home/home';
 import {SeanceDashboard} from './pages/seance-dashboard/seance-dashboard';
+import {AdminDashboardComponent} from './pages/admin-dashboard-component/admin-dashboard-component';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,10 @@ export const routes: Routes = [
       {
         path: 'dashboard-Seance',
         component : SeanceDashboard
+      },
+      {
+        path: 'dashboard-init',
+        component: AdminDashboardComponent
       }
     ]
   }
