@@ -6,6 +6,7 @@ import {Login} from './pages/login/login';
 import {Home} from './pages/home/home';
 import {SeanceDashboard} from './pages/seance-dashboard/seance-dashboard';
 import {AdminDashboardComponent} from './pages/admin-dashboard-component/admin-dashboard-component';
+import {AdminSallesDashboard} from './pages/admin-salles-dashboard/admin-salles-dashboard';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'dashboard-init',
         component: AdminDashboardComponent
+      },
+      {
+        path: 'dashboard-salle',
+        component: AdminSallesDashboard
       }
     ]
   }
