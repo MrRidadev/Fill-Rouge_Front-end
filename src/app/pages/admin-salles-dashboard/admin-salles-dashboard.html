@@ -1,99 +1,74 @@
 <div class="container my-5">
-  <h2 class="text-center mb-4 fw-bold">
-    <i class="bi bi-building"></i> Gestion des Salles
-  </h2>
+    <h2 class="text-center mb-4 fw-bold">
+        <i class="bi bi-building"></i> Gestion des Salles
+    </h2>
 
-  <!-- Bouton ajouter une salle -->
-  <div class="text-end mb-3">
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSalleModal">
-      <i class="bi bi-plus-circle"></i>Ajouter Salle
-    </button>
-  </div>
-
-  <!-- Table des salles -->
-  <div class="card shadow-lg">
-    <div class="card-body">
-      <table class="table table-hover align-middle text-center">
-        <thead class="table-dark">
-        <tr>
-          <th>#</th>
-          <th>Nom de la Salle</th>
-          <th>Capacité</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>Salle 1</td>
-          <td>120</td>
-          <td>
-            <button class="btn btn-primary btn-sm me-2">
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button class="btn btn-danger btn-sm">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Salle 2</td>
-          <td>80</td>
-          <td>
-            <button class="btn btn-primary btn-sm me-2">
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button class="btn btn-danger btn-sm">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Salle VIP</td>
-          <td>50</td>
-          <td>
-            <button class="btn btn-primary btn-sm me-2">
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button class="btn btn-danger btn-sm">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <!-- Bouton ajouter une salle -->
+    <div class="text-end mb-3">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSalleModal">
+            <i class="bi bi-plus-circle"></i> Ajouter Salle
+        </button>
     </div>
-  </div>
+
+    <!-- Table des salles -->
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Nom de la Salle</th>
+                    <th>Capacité</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Boucle Angular sur les salles -->
+                <tr *ngFor="let salle of salles; let i = index">
+                    <td>{{salle.id }}</td>
+                    <td>{{ salle.nom }}</td>
+                    <td>{{ salle.capacite }}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm me-2">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <!-- Modal Ajouter Salle -->
 <div class="modal fade" id="addSalleModal" tabindex="-1" aria-labelledby="addSalleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="addSalleModalLabel">
-          <i class="bi bi-plus-circle"></i> Ajouter Salle
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="nomSalle" class="form-label">Nom de la Salle</label>
-            <input type="text" class="form-control" id="nomSalle" placeholder="Ex: Salle 1">
-          </div>
-          <div class="mb-3">
-            <label for="capaciteSalle" class="form-label">Capacité</label>
-            <input type="number" class="form-control" id="capaciteSalle" placeholder="Ex: 100">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-success">Ajouter</button>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="addSalleModalLabel">
+                    <i class="bi bi-plus-circle"></i> Ajouter Salle
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="nomSalle" class="form-label">Nom de la Salle</label>
+                        <input type="text" class="form-control" id="nomSalle" placeholder="Ex: Salle 1" [(ngModel)]="newSalle.nom" name="nomSalle">
+                    </div>
+                    <div class="mb-3">
+                        <label for="capaciteSalle" class="form-label">Capacité</label>
+                        <input type="number" class="form-control" id="capaciteSalle" placeholder="Ex: 100" [(ngModel)]="newSalle.capacite" name="capaciteSalle">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" (click)="addSalle()" data-bs-dismiss="modal">Ajouter</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
