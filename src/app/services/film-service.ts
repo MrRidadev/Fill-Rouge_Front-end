@@ -28,6 +28,10 @@ export class FilmService {
   // supprimer film by id
 
   deleteFilm(idFilm: number): Observable<string> {
-    return this.http.delete(`${this.apiUrl}/delete/${idFilm}`, { responseType: 'text' });
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    return this.http.delete(`${this.apiUrl}/delete/${idFilm}`, { headers, responseType: 'text' });
   }
+
 }

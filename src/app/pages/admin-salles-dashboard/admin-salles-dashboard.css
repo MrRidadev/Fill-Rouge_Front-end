@@ -1,0 +1,31 @@
+#dashboard-film {
+  background-color: #f8f9fa !important;
+  min-height: 100vh;
+  border-radius: 1rem;
+}
+
+/* Images */
+.film-image {
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+.film-image-container:hover .film-image {
+  transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Boutons */
+.btn {
+  border-radius: 0.75rem;
+  font-weight: 500;
+}

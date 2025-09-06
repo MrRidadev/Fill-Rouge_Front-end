@@ -1,98 +1,102 @@
 <div class="p-4" id="dashboard-film">
+  <!-- Header -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3>Gestion des films</h3>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFilmModal">
-      <i class="bi bi-plus"></i> Ajouter un film
+    <h3 class="fw-bold text-primary d-flex align-items-center gap-2">
+      <i class="bi bi-film"></i> Gestion des films
+    </h3>
+    <button class="btn btn-success shadow-sm d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addFilmModal">
+      <i class="bi bi-plus-circle"></i> Ajouter un film
     </button>
-
   </div>
+
   <!-- Modal Ajouter un film -->
   <div class="modal fade" id="addFilmModal" tabindex="-1" aria-labelledby="addFilmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addFilmModalLabel">Ajouter un film</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      <div class="modal-content shadow-lg rounded-4">
+        <div class="modal-header bg-primary text-white rounded-top-4">
+          <h5 class="modal-title d-flex align-items-center gap-2" id="addFilmModalLabel">
+            <i class="bi bi-plus-circle"></i> Ajouter un film
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="image" class="form-label">Image du film</label>
-              <input type="file" class="form-control" id="image" >
+              <label for="image" class="form-label fw-semibold"><i class="bi bi-image"></i> Image du film</label>
+              <input type="file" class="form-control" id="image">
             </div>
             <div class="mb-3">
-              <label for="titreFilm" class="form-label">Titre du film</label>
+              <label for="titreFilm" class="form-label fw-semibold"><i class="bi bi-type"></i> Titre du film</label>
               <input type="text" class="form-control" id="titreFilm" placeholder="Ex: Avatar 3">
             </div>
             <div class="mb-3">
-              <label for="langueFilm" class="form-label">Langue</label>
+              <label for="langueFilm" class="form-label fw-semibold"><i class="bi bi-translate"></i> Langue</label>
               <input type="text" class="form-control" id="langueFilm" placeholder="Ex: Français, Anglais...">
             </div>
             <div class="mb-3">
-              <label for="descriptionFilm" class="form-label">Description</label>
+              <label for="descriptionFilm" class="form-label fw-semibold"><i class="bi bi-card-text"></i> Description</label>
               <textarea class="form-control" id="descriptionFilm" rows="3"></textarea>
             </div>
             <div class="mb-3">
-              <label for="genreFilm" class="form-label">Genre</label>
+              <label for="genreFilm" class="form-label fw-semibold"><i class="bi bi-tags"></i> Genre</label>
               <input id="genreFilm" class="form-control" type="text" placeholder="Ex: Action, Comédie, Drame...">
             </div>
           </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary">Ajouter</button>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Annuler</button>
+          <button type="button" class="btn btn-primary"><i class="bi bi-check-circle"></i> Ajouter</button>
         </div>
       </div>
     </div>
   </div>
 
-
-  <p class="text-muted mb-4">Gérez votre catalogue de films</p>
+  <!-- Sous-titre -->
+  <p class="text-muted mb-4"><i class="bi bi-collection-play"></i> Gérez votre catalogue de films</p>
 
   <!-- Filtres -->
   <div class="row g-2 mb-4">
     <div class="col-12 col-md-6 col-lg-4">
-      <input type="text" class="form-control" placeholder="🔍 Rechercher un film..." />
+      <div class="input-group">
+        <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Rechercher un film..." />
+      </div>
     </div>
     <div class="col-6 col-md-3 col-lg-2">
-      <select class="form-select">
-        <option>Tous les genres</option>
-        <option>Action</option>
-        <option>Science-Fiction</option>
-      </select>
-    </div>
-    <div class="col-6 col-md-3 col-lg-2">
-      <select class="form-select">
-        <option>Tous les statuts</option>
-        <option>Actif</option>
-        <option>Archivé</option>
-      </select>
+      <div class="input-group">
+        <span class="input-group-text bg-light"><i class="bi bi-funnel"></i></span>
+        <input type="text" class="form-control" placeholder="Genre...">
+      </div>
     </div>
   </div>
 
-  <!-- Films (statique) -->
+  <!-- Films -->
   <div class="row g-4">
-    <!-- Film 1 -->
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let film of films">
-      <div class="card h-100 shadow-sm">
+      <div class="card h-100 shadow-sm border-0 hover-card">
         <div class="position-relative film-image-container">
-          <img [src]=" film.imageUrl"fr
+          <img [src]="film.imageUrl"
                alt="image"
                class="img-fluid w-100 film-image rounded-top">
-          <span class="badge bg-success position-absolute top-0 end-0 m-2">Actif</span>
+
         </div>
-        <div  class="card-body">
-          <h5 class="fw-bold">{{film.titre}}</h5>
-          <p class="mb-2">Langue : <span class="badge bg-primary text-white">{{film.langue}}</span></p>
-          <p class="mb-2">Description :{{film.description}}.</p>
-          <p class="mb-2">Genre : <span class="badge bg-success text-white">{{film.genre}}</span></p>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-primary flex-grow-1"><i class="bi bi-pencil me-1"></i>Modifier</button>
-            <button class="btn btn-outline-danger flex-grow-1" (click)="deleteFilm(film.idFilm)"><i class="bi bi-trash me-1"></i>Supprimer</button>
+        <div class="card-body">
+          <h5 class="fw-bold text-dark d-flex align-items-center gap-2">
+            <i class="bi bi-play-circle text-primary"></i> {{film.titre}}
+          </h5>
+          <p class="mb-2"><i class="bi bi-translate"></i> Langue : <span class="badge bg-primary">{{film.langue}}</span></p>
+          <p class="mb-2 text-muted"><i class="bi bi-card-text"></i> {{film.description}}</p>
+          <p class="mb-2"><i class="bi bi-tags"></i> Genre : <span class="badge bg-success">{{film.genre}}</span></p>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-outline-primary flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+              <i class="bi bi-pencil"></i> Modifier
+            </button>
+            <button class="btn btn-outline-danger flex-grow-1 d-flex align-items-center justify-content-center gap-1" (click)="deleteFilm(film.idFilm)">
+              <i class="bi bi-trash"></i> Supprimer
+            </button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

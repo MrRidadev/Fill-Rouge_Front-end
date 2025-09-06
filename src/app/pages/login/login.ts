@@ -70,7 +70,7 @@ export class Login implements OnInit {
 
   redirectBasedOnRole(): void {
     if (this.authService.getCurrentUser()?.role === 'ADMIN') {
-      this.router.navigate(['/dashboard-admin']);
+      this.router.navigate(['/dashboard-admin/dashboard-init']);
     } else {
       this.router.navigate(['/']);
     }
