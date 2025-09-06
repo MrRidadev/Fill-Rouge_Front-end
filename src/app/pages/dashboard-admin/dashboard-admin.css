@@ -23,6 +23,8 @@
   font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 2rem;
+  font-family: 'Metal Mania', cursive;
+  color: #d50032 !important;
 }
 
 .logo .highlight {
