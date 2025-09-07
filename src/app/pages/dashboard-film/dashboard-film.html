@@ -9,47 +9,53 @@
     </button>
   </div>
 
-  <!-- Modal Ajouter un film -->
-  <div class="modal fade" id="addFilmModal" tabindex="-1" aria-labelledby="addFilmModalLabel" aria-hidden="true">
+  <!-- Modal Ajouter/Modifier un film -->
+  <div class="modal fade" id="addFilmModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow-lg rounded-4">
-        <div class="modal-header bg-primary text-white rounded-top-4">
-          <h5 class="modal-title d-flex align-items-center gap-2" id="addFilmModalLabel">
-            <i class="bi bi-plus-circle"></i> Ajouter un film
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">
+            <i class="bi bi-plus-circle"></i>
+            {{ editMode ? 'Modifier le film' : 'Ajouter un film' }}
           </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <label for="image" class="form-label fw-semibold"><i class="bi bi-image"></i> Image du film</label>
-              <input type="file" class="form-control" id="image">
+              <label class="form-label fw-semibold">Image</label>
+              <input type="file" class="form-control" (change)="onFileSelected($event)">
             </div>
             <div class="mb-3">
-              <label for="titreFilm" class="form-label fw-semibold"><i class="bi bi-type"></i> Titre du film</label>
-              <input type="text" class="form-control" id="titreFilm" placeholder="Ex: Avatar 3">
+              <label class="form-label fw-semibold">Titre</label>
+              <input type="text" class="form-control" [(ngModel)]="titre" name="titre">
             </div>
             <div class="mb-3">
-              <label for="langueFilm" class="form-label fw-semibold"><i class="bi bi-translate"></i> Langue</label>
-              <input type="text" class="form-control" id="langueFilm" placeholder="Ex: Français, Anglais...">
+              <label class="form-label fw-semibold">Langue</label>
+              <input type="text" class="form-control" [(ngModel)]="langue" name="langue">
             </div>
             <div class="mb-3">
-              <label for="descriptionFilm" class="form-label fw-semibold"><i class="bi bi-card-text"></i> Description</label>
-              <textarea class="form-control" id="descriptionFilm" rows="3"></textarea>
+              <label class="form-label fw-semibold">Description</label>
+              <textarea class="form-control" rows="3" [(ngModel)]="description" name="description"></textarea>
             </div>
             <div class="mb-3">
-              <label for="genreFilm" class="form-label fw-semibold"><i class="bi bi-tags"></i> Genre</label>
-              <input id="genreFilm" class="form-control" type="text" placeholder="Ex: Action, Comédie, Drame...">
+              <label class="form-label fw-semibold">Genre</label>
+              <input type="text" class="form-control" [(ngModel)]="genre" name="genre">
             </div>
           </form>
         </div>
-        <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Annuler</button>
-          <button type="button" class="btn btn-primary"><i class="bi bi-check-circle"></i> Ajouter</button>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="saveFilm()" data-bs-dismiss="modal">
+            {{ editMode ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
         </div>
       </div>
     </div>
   </div>
+
+
+
 
   <!-- Sous-titre -->
   <p class="text-muted mb-4"><i class="bi bi-collection-play"></i> Gérez votre catalogue de films</p>
@@ -88,7 +94,7 @@
           <p class="mb-2 text-muted"><i class="bi bi-card-text"></i> {{film.description}}</p>
           <p class="mb-2"><i class="bi bi-tags"></i> Genre : <span class="badge bg-success">{{film.genre}}</span></p>
           <div class="d-flex gap-2 mt-3">
-            <button class="btn btn-outline-primary flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+            <button class="btn btn-outline-primary" (click)="editFilm(film)" data-bs-toggle="modal" data-bs-target="#addFilmModal">
               <i class="bi bi-pencil"></i> Modifier
             </button>
             <button class="btn btn-outline-danger flex-grow-1 d-flex align-items-center justify-content-center gap-1" (click)="deleteFilm(film.idFilm)">
