@@ -7,6 +7,7 @@ import {Home} from './pages/home/home';
 import {SeanceDashboard} from './pages/seance-dashboard/seance-dashboard';
 import {AdminDashboardComponent} from './pages/admin-dashboard-component/admin-dashboard-component';
 import {AdminSallesDashboard} from './pages/admin-salles-dashboard/admin-salles-dashboard';
+import {ReservationList} from './pages/reservation-list/reservation-list';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
       {
         path: 'dashboard-salle',
         component: AdminSallesDashboard
+      },
+      {
+        path:'resrvation-list',
+        component: ReservationList
       }
     ]
   }
