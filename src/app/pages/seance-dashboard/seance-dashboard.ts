@@ -89,17 +89,25 @@ export class SeanceDashboard implements OnInit {
   // Sauvegarder la modification
   updateSeance() {
     if (this.selectedSeance) {
-      this.seanceService.updateSeance(this.selectedSeance.id, this.selectedSeance).subscribe({
-        next: (res: Seance) => {
+      const request: SeanceRequest = {
+        nom_seance: this.selectedSeance.nomSeance,
+        dateHeure: this.selectedSeance.dateHeure.toString(),
+        filmId: this.selectedSeance.film.idFilm,
+        salleId: this.selectedSeance.salle.id
+      };
+
+      this.seanceService.updateSeance(this.selectedSeance.id, request).subscribe({
+        next: () => {
           this.message = 'Séance modifiée avec succès !';
           this.loadSeances();
           this.selectedSeance = null;
         },
-        error: (err: any) => {
+        error: (err) => {
           this.message = 'Erreur lors de la modification de la séance';
           console.error(err);
         }
       });
     }
   }
+
 }

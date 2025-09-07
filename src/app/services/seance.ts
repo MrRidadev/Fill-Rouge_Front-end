@@ -17,7 +17,7 @@ export interface SeanceRequest {
   nom_seance: string;
   dateHeure: string;
   filmId: number;
-  salleId: number;
+  salleId: number|undefined;
 }
 
 @Injectable({
@@ -30,6 +30,7 @@ export class SeanceService {
 
   private getHeaders() {
     const token = this.auth.getToken();
+    console.log("séance"+token);
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
@@ -56,12 +57,14 @@ export class SeanceService {
   }
 
 
-  updateSeance(id: number, seance: Seance): Observable<Seance> {
+  updateSeance(id: number, seance: SeanceRequest): Observable<Seance> {
     return this.http.put<Seance>(
       `${this.Urlapi}updateSeance/${id}`,
       seance,
       { headers: this.getHeaders() }
     );
   }
+
+
 }
 
