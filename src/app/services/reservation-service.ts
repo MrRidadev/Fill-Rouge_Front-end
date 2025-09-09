@@ -48,4 +48,11 @@ export class ReservationService {
       headers: this.getHeaders()
     });
   }
+
+  // Compter les réservations
+  countReservations(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count`, {
+      headers: this.getHeaders()
+    });
+  }
 }
