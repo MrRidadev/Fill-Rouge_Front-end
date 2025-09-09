@@ -35,6 +35,7 @@ export class ReservationService {
 
   private getHeaders() {
     const token = this.auth.getToken();
+    console.log("reservation: "+token);
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
