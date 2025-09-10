@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {Salle, SalleService} from '../../services/salle';
 import {FormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 @Component({
   selector: 'app-admin-salles-dashboard',
   templateUrl: './admin-salles-dashboard.html',
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   styleUrls: ['./admin-salles-dashboard.css']
 })
@@ -15,6 +16,8 @@ export class AdminSallesDashboard implements OnInit {
 
   salles: Salle[] = [];
   newSalle: Salle = { nom: '', capacite: 0 };
+  message: string = '';
+
 
   constructor(private salleService: SalleService) { }
 
@@ -39,5 +42,20 @@ export class AdminSallesDashboard implements OnInit {
       },
       error: (err: any) => console.error(err)
     });
+  }
+
+  // Supprimer séance
+  deleteSalle(id: number) {
+    if (confirm('Voulez-vous vraiment supprimer cette Salle ?')) {
+      this.salleService.deleteSalle(id).subscribe({
+        next: (res: string) => {
+          this.message = res;
+          this.loadSalles();
+        },
+        error: (err: any) => {
+          this.message = 'Erreur : ' + err.message;
+        }
+      });
+    }
   }
 }

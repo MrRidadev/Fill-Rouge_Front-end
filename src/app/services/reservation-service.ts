@@ -24,6 +24,18 @@ export interface ReservationRequest {
   numPlace: number;
 }
 
+export interface ReservationDTO {
+  id: number;
+  date: string;
+  numPlace: number;
+  clientId: number;
+  seanceId: number;
+  clientNom: string;
+  filmTitre: string;
+  salleNom: string;
+  seanceDateHeure: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +47,7 @@ export class ReservationService {
 
   private getHeaders() {
     const token = this.auth.getToken();
+    console.log("reservation: "+token);
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
@@ -44,6 +57,20 @@ export class ReservationService {
   // Créer une réservation
   createReservation(reservation: ReservationRequest): Observable<Reservation> {
     return this.http.post<Reservation>(`${this.apiUrl}/create`, reservation, {
+      headers: this.getHeaders()
+    });
+  }
+
+  // Compter les réservations
+  countReservations(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  // Récupérer toutes les réservations
+  getAllReservations(): Observable<ReservationDTO[]> {
+    return this.http.get<ReservationDTO[]>(`${this.apiUrl}/all`, {
       headers: this.getHeaders()
     });
   }

@@ -39,4 +39,18 @@ export class SalleService  {
       headers: this.getHeaders()
     });
   }
+
+  // Supprimer salle
+  deleteSalle(id: number): Observable<string> {
+    return this.http.delete(`${this.apiUrl}/delete/${id}`, {
+      headers: this.getHeaders(),
+      responseType: 'text'
+    });
+  }
+  // Compter les salle
+  countSalle(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/countSalle`, {
+      headers: this.getHeaders()
+    });
+  }
 }
