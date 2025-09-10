@@ -49,7 +49,7 @@ export class SalleService  {
   }
   // Compter les salle
   countSalle(): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/count`, {
+    return this.http.get<number>(`${this.apiUrl}/countSalle`, {
       headers: this.getHeaders()
     });
   }
