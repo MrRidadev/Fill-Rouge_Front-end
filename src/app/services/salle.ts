@@ -47,4 +47,10 @@ export class SalleService  {
       responseType: 'text'
     });
   }
+  // Compter les salle
+  countSalle(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/count`, {
+      headers: this.getHeaders()
+    });
+  }
 }

@@ -61,4 +61,11 @@ export class FilmService {
       headers: this.getHeaders(true)
     });
   }
+
+  // Compter les films
+  countFilm(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/countFilm`, {
+      headers: this.getHeaders()
+    });
+  }
 }
