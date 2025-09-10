@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h2 class="mb-3 text-center">Liste des Réservations</h2>
+
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary"></div>
+    <p>Chargement des réservations...</p>
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Liste des réservations -->
+  <div class="row">
+    <div class="col-md-4 mb-4 d-flex" *ngFor="let res of reservations">
+      <div class="card shadow-sm reservation-card h-100 w-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-primary">
+            🎟️ Réservation #{{ res.id }}
+          </h5>
+          <p class="card-text flex-grow-1">
+            <strong>Client :</strong> {{ res.clientNom }} <br>
+            <strong>Film :</strong> {{ res.filmTitre }} <br>
+            <strong>Salle :</strong> {{ res.salleNom }} <br>
+            <strong>Date Séance :</strong> {{ res.seanceDateHeure }} <br>
+            <strong>Date Réservation :</strong> {{ res.date }} <br>
+            <strong>Places :</strong> {{ res.numPlace }}
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

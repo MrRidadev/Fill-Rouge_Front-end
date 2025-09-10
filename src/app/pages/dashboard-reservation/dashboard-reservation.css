@@ -1,0 +1,24 @@
+.reservation-card {
+  border-radius: 15px;
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5em 1em;
+}
+
+.container {
+  min-height: 100vh; /* évite que le container soit trop petit */
+}

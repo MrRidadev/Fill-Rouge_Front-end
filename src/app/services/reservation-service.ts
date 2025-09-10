@@ -24,6 +24,18 @@ export interface ReservationRequest {
   numPlace: number;
 }
 
+export interface ReservationDTO {
+  id: number;
+  date: string;
+  numPlace: number;
+  clientId: number;
+  seanceId: number;
+  clientNom: string;
+  filmTitre: string;
+  salleNom: string;
+  seanceDateHeure: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,6 +64,13 @@ export class ReservationService {
   // Compter les réservations
   countReservations(): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/count`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  // Récupérer toutes les réservations
+  getAllReservations(): Observable<ReservationDTO[]> {
+    return this.http.get<ReservationDTO[]>(`${this.apiUrl}/all`, {
       headers: this.getHeaders()
     });
   }
