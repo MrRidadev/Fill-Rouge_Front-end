@@ -103,4 +103,24 @@ export class DashboardFilm implements OnInit {
       });
     }
   }
+
+  searchTitre: string = '';
+  searchGenre: string = '';
+
+  filterFilms() {
+    if (this.searchTitre) {
+      this.filmService.searchByTitre(this.searchTitre).subscribe({
+        next: data => this.films = data,
+        error: err => console.error('Erreur recherche titre', err)
+      });
+    } else if (this.searchGenre) {
+      this.filmService.searchByGenre(this.searchGenre).subscribe({
+        next: data => this.films = data,
+        error: err => console.error('Erreur recherche genre', err)
+      });
+    } else {
+      this.loadFilms(); // recharger tous les films si aucun filtre
+    }
+  }
+
 }

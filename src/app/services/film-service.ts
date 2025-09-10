@@ -68,4 +68,19 @@ export class FilmService {
       headers: this.getHeaders()
     });
   }
+
+  // Rechercher par titre
+  searchByTitre(titre: string): Observable<Film[]> {
+    return this.http.get<Film[]>(`${this.apiUrl}/searchByTitre?titre=${titre}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+// Rechercher par genre
+  searchByGenre(genre: string): Observable<Film[]> {
+    return this.http.get<Film[]>(`${this.apiUrl}/searchByGenre?genre=${genre}`, {
+      headers: this.getHeaders()
+    });
+  }
+
 }
